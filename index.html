@@ -29,7 +29,7 @@
                            <input type="text" id="initialValue" class="form-control text-center" value="1" >
                            <button class="btn btn-default " id="pluseQuantity"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$<span id="initialPrice">100</span></h5>
+                        <h5>$ <span id="initialPrice">100</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default" ><i class="fas fa-minus"></i></button>
-                           <input type="text"  class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button class="btn btn-default" id="siliconMinus" ><i class="fas fa-minus"></i></button>
+                           <input type="text"  class="form-control text-center" id="initialSiliconQuantity" value="1">
+                           <button class="btn btn-default" id="siliconPluse"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$ <span id="initialSiliconPrice">50</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -88,26 +88,53 @@
         var initialPrice     = parseFloat(document.getElementById('initialPrice').innerText);
         var perProductPrice  = initialPrice /initialQuantity;
         var productPrice     = quantityUpdate * perProductPrice;
-        document.getElementById('initialPrice').innerText=productPrice;
-        console.log(quantityUpdate,productPrice); 
+        var MobilePrice = document.getElementById('initialPrice').innerText=productPrice;
+
       })
     // quantity minus
       var quantityMinus =document.getElementById('quantityMinus');
       quantityMinus.addEventListener('click',function(){
          var initialQuantity  = parseFloat(document.getElementById('initialValue').value);
          if(isNaN(initialQuantity) || initialQuantity <= 1  ){
-            alert('vai! quantity zero hoi na vai :)');
+            alert('vai ! quantity zero hoi na vai :( ');
          }else{
             var decreaseQuantity = initialQuantity-1;
             var quantityUpdate   = document.getElementById('initialValue').value=decreaseQuantity;
             var initialPrice     = parseFloat(document.getElementById('initialPrice').innerText);
             var perProductPrice  = initialPrice /initialQuantity;
             var productPrice     = quantityUpdate * perProductPrice;
-            //var newProductPrice=initialPrice - productPrice;
-           var c=document.getElementById('initialPrice').innerText=productPrice;
-          console.log(quantityUpdate,c);
+            var MobilePrice = document.getElementById('initialPrice').innerText=productPrice;
          }
       })
+      
+      // silicon quantity increase
+      var pluseClick = document.getElementById('siliconPluse');
+      pluseClick.addEventListener('click',function(){
+        var initialQuantity  = parseFloat(document.getElementById('initialSiliconQuantity').value);
+        var increaseQuantity = initialQuantity +1;
+        var quantityUpdate   = document.getElementById('initialSiliconQuantity').value=increaseQuantity;
+        var initialPrice     = parseFloat(document.getElementById('initialSiliconPrice').innerText);
+        var perProductPrice  = initialPrice /initialQuantity;
+        var productPrice     = quantityUpdate * perProductPrice;
+        var siliconPrice = document.getElementById('initialSiliconPrice').innerText=productPrice;
+      })
+
+      // silicon quantity decrease
+      var quantityMinus =document.getElementById('siliconMinus');
+      quantityMinus.addEventListener('click',function(){
+         var initialQuantity  = parseFloat(document.getElementById('initialSiliconQuantity').value);
+         if(isNaN(initialQuantity) || initialQuantity <= 1  ){
+            alert('vai ! quantity zero hoi na vai :( ');
+         }else{
+            var decreaseQuantity = initialQuantity-1;
+            var quantityUpdate   = document.getElementById('initialSiliconQuantity').value=decreaseQuantity;
+            var initialPrice     = parseFloat(document.getElementById('initialSiliconPrice').innerText);
+            var perProductPrice  = initialPrice /initialQuantity;
+            var productPrice     = quantityUpdate * perProductPrice;
+           var siliconPrice = document.getElementById('initialSiliconPrice').innerText=productPrice;
+         }
+      })
+
 
    </script>
 
