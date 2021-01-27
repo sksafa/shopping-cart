@@ -59,14 +59,14 @@
 
                      <div class="col-md-8">
                         <h5>Subtotal: </h5>
-                        <h5>Tax:</h5>
+                        <h5>15% Tax:</h5>
                         <h5>Total:</h5>
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="subTotal">150</span></h5>
+                        <h5>$ <span id="tax">22.5</span></h5>
+                        <h5>$ <span id="totalPrice">172.5</span></h5>
                      </div>
                   </div>
                </div>
@@ -85,12 +85,14 @@
         var initialQuantity  = parseFloat(document.getElementById('initialValue').value);
         var increaseQuantity = initialQuantity +1;
         var quantityUpdate   = document.getElementById('initialValue').value=increaseQuantity;
-        var initialPrice     = parseFloat(document.getElementById('initialPrice').innerText);
-        var perProductPrice  = initialPrice /initialQuantity;
-        var productPrice     = quantityUpdate * perProductPrice;
-        var MobilePrice = document.getElementById('initialPrice').innerText=productPrice;
+        var initialPrice = parseFloat(document.getElementById('initialPrice').innerText);
+        var productPrice = checkPrice(initialPrice, initialQuantity,quantityUpdate);
+        var MobilePrice  = document.getElementById('initialPrice').innerText=productPrice;
+        var initialSiliconPrice = parseFloat(document.getElementById('initialSiliconPrice').innerText);
+        var totalPrice = addSubtotalPrice(MobilePrice, initialSiliconPrice);
 
       })
+       
     // quantity minus
       var quantityMinus =document.getElementById('quantityMinus');
       quantityMinus.addEventListener('click',function(){
@@ -99,11 +101,12 @@
             alert('vai ! quantity zero hoi na vai :( ');
          }else{
             var decreaseQuantity = initialQuantity-1;
-            var quantityUpdate   = document.getElementById('initialValue').value=decreaseQuantity;
-            var initialPrice     = parseFloat(document.getElementById('initialPrice').innerText);
-            var perProductPrice  = initialPrice /initialQuantity;
-            var productPrice     = quantityUpdate * perProductPrice;
-            var MobilePrice = document.getElementById('initialPrice').innerText=productPrice;
+            var quantityUpdate = document.getElementById('initialValue').value=decreaseQuantity;
+            var initialPrice = parseFloat(document.getElementById('initialPrice').innerText);
+            var productPrice = checkPrice(initialPrice, initialQuantity,quantityUpdate);
+            var MobilePrice  = document.getElementById('initialPrice').innerText=productPrice;
+            var initialSiliconPrice = parseFloat(document.getElementById('initialSiliconPrice').innerText);
+            var totalPrice = addSubtotalPrice(MobilePrice, initialSiliconPrice);
          }
       })
       
@@ -113,10 +116,12 @@
         var initialQuantity  = parseFloat(document.getElementById('initialSiliconQuantity').value);
         var increaseQuantity = initialQuantity +1;
         var quantityUpdate   = document.getElementById('initialSiliconQuantity').value=increaseQuantity;
-        var initialPrice     = parseFloat(document.getElementById('initialSiliconPrice').innerText);
-        var perProductPrice  = initialPrice /initialQuantity;
-        var productPrice     = quantityUpdate * perProductPrice;
+        var initialPrice = parseFloat(document.getElementById('initialSiliconPrice').innerText);
+        var productPrice = checkPrice(initialPrice, initialQuantity,quantityUpdate);
         var siliconPrice = document.getElementById('initialSiliconPrice').innerText=productPrice;
+        var initialPrice = parseFloat(document.getElementById('initialPrice').innerText);
+        var totalPrice   = addSubtotalPrice(siliconPrice, initialPrice);
+
       })
 
       // silicon quantity decrease
@@ -127,13 +132,31 @@
             alert('vai ! quantity zero hoi na vai :( ');
          }else{
             var decreaseQuantity = initialQuantity-1;
-            var quantityUpdate   = document.getElementById('initialSiliconQuantity').value=decreaseQuantity;
-            var initialPrice     = parseFloat(document.getElementById('initialSiliconPrice').innerText);
-            var perProductPrice  = initialPrice /initialQuantity;
-            var productPrice     = quantityUpdate * perProductPrice;
-           var siliconPrice = document.getElementById('initialSiliconPrice').innerText=productPrice;
+            var quantityUpdate = document.getElementById('initialSiliconQuantity').value=decreaseQuantity;
+            var initialPrice = parseFloat(document.getElementById('initialSiliconPrice').innerText);
+            var productPrice = checkPrice(initialPrice, initialQuantity,quantityUpdate);
+            var siliconPrice = document.getElementById('initialSiliconPrice').innerText=productPrice;
+            var initialPrice = parseFloat(document.getElementById('initialPrice').innerText);
+            var totalPrice = addSubtotalPrice(siliconPrice, initialPrice);
          }
       })
+
+      // calculation for all quantity price
+      function checkPrice(initialPrice,initialQuantity,quantityUpdate){
+        var perProductPrice  = initialPrice /initialQuantity;
+        var productPrice     = quantityUpdate * perProductPrice;
+        return productPrice;
+      }
+      // calculation all subtotal,tax,total Price
+      function addSubtotalPrice(MobilePrice,initialSiliconPrice){
+         var addPrice = MobilePrice + initialSiliconPrice;
+         var totalPrice = document.getElementById('subTotal').innerText=addPrice;
+         var fifteenPercentTax = addPrice*15;
+         var tax = fifteenPercentTax/100;
+         var taxAdd = document.getElementById('tax').innerText=tax;
+         var totalPrice =  addPrice + tax;
+         var taxAdd = document.getElementById('totalPrice').innerText=totalPrice; 
+      }
 
 
    </script>
